@@ -1,5 +1,18 @@
 <template>
   <div>
-    <main>포트폴리오</main>
+    <ContTitle title="fiction" />
+    <PortCont />
   </div>
 </template>
+
+<script>
+import ContTitle from "@/components/layout/ContTitle.vue";
+import PortCont from "@/components/portfolio/PortCont.vue";
+
+export default {
+  components: {
+    ContTitle,
+    PortCont,
+  },
+};
+</script>

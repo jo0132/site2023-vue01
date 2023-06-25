@@ -23,12 +23,21 @@
   }
 }
 //cont__title
-.cont__title > h2 {
+.cont__title {
+  font-family: "Rebecca";
   text-align: center;
-  font-size: 5vw;
-  text-transform: uppercase;
-  font-weight: bold;
   padding: 5%;
+  position: relative;
+  color: #f0831e;
+  h2 {
+    display: inline-block;
+    font-size: 2vw;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 3px solid #f0831e;
+    padding: 10px 30px;
+    border-radius: 50%;
+  }
 }
 // bg
 .bg--blue {

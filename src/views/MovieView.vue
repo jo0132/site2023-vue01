@@ -1,26 +1,69 @@
 <template>
-  <ContTitle />
-  <MovieSlider />
-  <MovieSearch />
-  <MovieTag />
-  <MovieCont />
+  <div>
+    <ContTitle title="Movie" />
+    <MovieSlider :movies="movies" />
+    <MovieSearch @onSearch="search" />
+    <MovieTag @onSearch="tags" />
+    <MovieCont :movies="movies" />
+  </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import ContTitle from "@/components/layout/ContTitle.vue";
 import MovieSlider from "@/components/movie/MovieSlider.vue";
 import MovieSearch from "@/components/movie/MovieSearch.vue";
 import MovieTag from "@/components/movie/MovieTag.vue";
 import MovieCont from "@/components/movie/MovieCont.vue";
+// import { ref } from "vue";
 
 export default {
+  name: "MoviePage",
   components: {
     ContTitle,
     MovieSlider,
     MovieSearch,
     MovieTag,
     MovieCont,
+  },
+  data() {
+    return {
+      movies: [],
+    };
+  },
+  methods: {
+    async tags(query) {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/discover/movie?api_key=5db8e243a83e03b0e4f83c2e8e042370&language=ko-kr&with_genres=${query}`
+        );
+        const result = await response.json();
+        this.movies = result.results;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async search(query) {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/search/movie?api_key=5db8e243a83e03b0e4f83c2e8e042370&language=ko-kr&query=${query}`
+        );
+        const result = await response.json();
+        this.movies = result.results;
+      } catch (error) {
+        console.log("error", error);
+      }
+    },
+  },
+  async created() {
+    try {
+      const response = await fetch(
+        "https://api.themoviedb.org/3/movie/popular?api_key=5db8e243a83e03b0e4f83c2e8e042370&language=ko-kr"
+      );
+      const result = await response.json();
+      this.movies = result.results;
+    } catch (error) {
+      console.log("error", error);
+    }
   },
 };
 </script>
